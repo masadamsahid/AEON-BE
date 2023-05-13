@@ -1,4 +1,4 @@
-package com.example.aeon.dtos.karyawan;
+package com.example.aeon.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

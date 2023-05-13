@@ -2,7 +2,7 @@ package com.example.aeon.services;
 
 
 import com.example.aeon.dtos.karyawan.AddSingleKaryawanAndDetailsDto;
-import com.example.aeon.dtos.karyawan.BasicPaginationOptions;
+import com.example.aeon.dtos.BasicPaginationOptions;
 import com.example.aeon.dtos.karyawan.UpdateKaryawanAndDetailsByIdDto;
 import com.example.aeon.entities.Karyawan;
 
