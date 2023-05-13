@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@Table(
+  uniqueConstraints = @UniqueConstraint(columnNames = {"karyawan_id", "training_id"})
+)
 public class TrainingKaryawan extends BaseEntity{
   
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
