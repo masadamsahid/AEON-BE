@@ -1,10 +1,12 @@
 package com.example.aeon.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -34,5 +36,13 @@ public class Karyawan extends BaseEntity{
   )
   @PrimaryKeyJoinColumn
   private DetailKaryawan detailKaryawan;
+  
+  @JsonIgnore
+  @OneToMany(
+    mappedBy = "karyawan",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL
+  )
+  private List<Rekening> rekeningList;
   
 }
