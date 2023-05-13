@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingServiceImpl implements TrainingService {
@@ -38,5 +39,10 @@ public class TrainingServiceImpl implements TrainingService {
     List<Training> trainingList = trainingRepository.findByNamaPengajarContainingAndTemaContaining(namaPengajar, tema, pagination).getContent();
     
     return trainingList;
+  }
+  
+  @Override
+  public Optional<Training> getTrainingById(Long id) {
+    return trainingRepository.findById(id);
   }
 }

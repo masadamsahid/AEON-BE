@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/training")
@@ -50,6 +51,24 @@ public class TrainingController {
   
     return new ResponseEntity<>(
       trainingList,
+      HttpStatus.OK
+    );
+  }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity getTrainingById(@PathVariable("id") String id){
+    
+    Optional<Training> training = trainingService.getTrainingById(Long.valueOf(id));
+  
+    if (!training.isPresent()){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Training tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+  
+    return new ResponseEntity<>(
+      training,
       HttpStatus.OK
     );
   }

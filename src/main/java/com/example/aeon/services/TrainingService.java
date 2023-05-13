@@ -5,9 +5,12 @@ import com.example.aeon.dtos.training.AddSingleTrainingDto;
 import com.example.aeon.entities.Training;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TrainingService {
   Training addSingleTraining(AddSingleTrainingDto fields);
   
   List<Training> getTrainingListByNamaPengajarAndTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts);
+  
+  Optional<Training> getTrainingById(Long id);
 }
