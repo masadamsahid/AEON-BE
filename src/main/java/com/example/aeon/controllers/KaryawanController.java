@@ -2,6 +2,7 @@ package com.example.aeon.controllers;
 
 import com.example.aeon.dtos.karyawan.AddSingleKaryawanAndDetailsDto;
 import com.example.aeon.dtos.karyawan.BasicPaginationOptions;
+import com.example.aeon.dtos.karyawan.UpdateKaryawanAndDetailsByIdDto;
 import com.example.aeon.entities.ErrorMessage;
 import com.example.aeon.entities.Karyawan;
 import com.example.aeon.services.KaryawanService;
@@ -71,6 +72,26 @@ public class KaryawanController {
       karyawan,
       HttpStatus.OK
     );
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity updateKaryawanAndDetailsById(@PathVariable("id") String id,
+                                                     @Valid @RequestBody UpdateKaryawanAndDetailsByIdDto body){
+    
+    Optional<Karyawan> updatedKaryawan = karyawanService.updateKaryawanById(Long.valueOf(id), body);
+  
+    if (!updatedKaryawan.isPresent()){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Karyawan tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+  
+    return new ResponseEntity<>(
+      updatedKaryawan,
+      HttpStatus.OK
+    );
+    
   }
   
   

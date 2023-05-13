@@ -2,6 +2,7 @@ package com.example.aeon.services;
 
 import com.example.aeon.dtos.karyawan.AddSingleKaryawanAndDetailsDto;
 import com.example.aeon.dtos.karyawan.BasicPaginationOptions;
+import com.example.aeon.dtos.karyawan.UpdateKaryawanAndDetailsByIdDto;
 import com.example.aeon.entities.DetailKaryawan;
 import com.example.aeon.entities.Karyawan;
 import com.example.aeon.repositories.KaryawanRepository;
@@ -63,5 +64,31 @@ public class KaryawanServiceImpl implements KaryawanService{
   @Override
   public Optional<Karyawan> getKaryawanById(Long id) {
     return karyawanRepository.findById(id);
+  }
+  
+  @Override
+  public Optional<Karyawan> updateKaryawanById(Long id, UpdateKaryawanAndDetailsByIdDto updatedFields) {
+    
+    Optional<Karyawan> optKaryawan = karyawanRepository.findById(id);
+    
+    Karyawan karyawan;
+    if (optKaryawan.isPresent()){
+      karyawan = optKaryawan.get();
+    } else {
+      return Optional.empty();
+    }
+    
+  
+    if (updatedFields.getNama() != null) karyawan.setNama(updatedFields.getNama());
+    if (updatedFields.getJk() != null) karyawan.setJk(updatedFields.getJk());
+    if (updatedFields.getStatus() != null) karyawan.setStatus(updatedFields.getStatus());
+    if (updatedFields.getAlamat() != null) karyawan.setAlamat(updatedFields.getAlamat());
+    
+    if (updatedFields.getNik() != null) karyawan.getDetailKaryawan().setNik(updatedFields.getNik());
+    if (updatedFields.getNpwp() != null) karyawan.getDetailKaryawan().setNpwp(updatedFields.getNpwp());
+    
+    Karyawan updatedKaryawan = karyawanRepository.save(karyawan);
+    
+    return Optional.of(updatedKaryawan);
   }
 }
