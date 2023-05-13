@@ -1,5 +1,6 @@
 package com.example.aeon.controllers;
 
+import com.example.aeon.dtos.BasicPaginationOptions;
 import com.example.aeon.dtos.training.AddSingleTrainingDto;
 import com.example.aeon.entities.ErrorMessage;
 import com.example.aeon.entities.Training;
@@ -7,12 +8,10 @@ import com.example.aeon.services.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/training")
@@ -32,6 +31,25 @@ public class TrainingController {
   
     return new ResponseEntity<>(
       newTraining,
+      HttpStatus.OK
+    );
+  }
+  
+  @GetMapping
+  public ResponseEntity getTrainingListByNamaPengajarOrTema(@RequestParam("namaPengajar") String namaPengajar,
+                                                            @RequestParam("tema") String tema,
+                                                            @Valid @RequestBody BasicPaginationOptions paginationOpts){
+    List<Training> trainingList = trainingService.getTrainingListByNamaPengajarOrTema(namaPengajar, tema, paginationOpts);
+    
+    if (trainingList.size() == 0){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Training tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+  
+    return new ResponseEntity<>(
+      trainingList,
       HttpStatus.OK
     );
   }
