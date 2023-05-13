@@ -2,6 +2,7 @@ package com.example.aeon.controllers;
 
 import com.example.aeon.dtos.BasicPaginationOptions;
 import com.example.aeon.dtos.training.AddSingleTrainingDto;
+import com.example.aeon.dtos.training.UpdateTrainingByIdDto;
 import com.example.aeon.entities.ErrorMessage;
 import com.example.aeon.entities.Training;
 import com.example.aeon.services.TrainingService;
@@ -71,6 +72,26 @@ public class TrainingController {
       training,
       HttpStatus.OK
     );
+  }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity updateTrainingById(@PathVariable("id") String id,
+                                           @Valid @RequestBody UpdateTrainingByIdDto body){
+  
+    Optional<Training> updatedKaryawan = trainingService.updateTrainingById(Long.valueOf(id), body);
+  
+    if (!updatedKaryawan.isPresent()){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Karyawan tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+  
+    return new ResponseEntity<>(
+      updatedKaryawan,
+      HttpStatus.OK
+    );
+    
   }
   
 }

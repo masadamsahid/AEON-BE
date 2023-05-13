@@ -2,6 +2,7 @@ package com.example.aeon.services;
 
 import com.example.aeon.dtos.BasicPaginationOptions;
 import com.example.aeon.dtos.training.AddSingleTrainingDto;
+import com.example.aeon.dtos.training.UpdateTrainingByIdDto;
 import com.example.aeon.entities.Training;
 import com.example.aeon.repositories.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,27 @@ public class TrainingServiceImpl implements TrainingService {
   @Override
   public Optional<Training> getTrainingById(Long id) {
     return trainingRepository.findById(id);
+  }
+  
+  @Override
+  public Optional<Training> updateTrainingById(Long id, UpdateTrainingByIdDto updatedFields) {
+  
+    Optional<Training> optTraining = trainingRepository.findById(id);
+  
+    Training training;
+    if (optTraining.isPresent()){
+      training = optTraining.get();
+    } else {
+      return Optional.empty();
+    }
+    
+    
+    if (updatedFields.getNamaPengajar() != null) training.setNamaPengajar(updatedFields.getNamaPengajar());
+    if (updatedFields.getTema() != null) training.setTema(updatedFields.getTema());
+    
+    
+    Training updatedTraining = trainingRepository.save(training);
+  
+    return Optional.of(updatedTraining);
   }
 }
