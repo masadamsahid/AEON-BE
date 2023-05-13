@@ -55,5 +55,23 @@ public class KaryawanController {
     );
   }
   
+  @GetMapping("/{id}")
+  public ResponseEntity getKaryawanById(@PathVariable("id") String id){
+    
+    Optional<Karyawan> karyawan = karyawanService.getKaryawanById(Long.valueOf(id));
+    
+    if (!karyawan.isPresent()){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Karyawan tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+    
+    return new ResponseEntity<>(
+      karyawan,
+      HttpStatus.OK
+    );
+  }
+  
   
 }

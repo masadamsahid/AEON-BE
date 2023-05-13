@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -57,5 +58,10 @@ public class KaryawanServiceImpl implements KaryawanService{
     List<Karyawan> karyawanList = karyawanRepository.findByNamaContaining(nama, pagination).getContent();
     
     return karyawanList;
+  }
+  
+  @Override
+  public Optional<Karyawan> getKaryawanById(Long id) {
+    return karyawanRepository.findById(id);
   }
 }
