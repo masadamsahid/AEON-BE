@@ -1,13 +1,17 @@
 package com.example.aeon.services;
 
 import com.example.aeon.dtos.karyawan.AddSingleKaryawanAndDetailsDto;
+import com.example.aeon.dtos.karyawan.BasicPaginationOptions;
 import com.example.aeon.entities.DetailKaryawan;
 import com.example.aeon.entities.Karyawan;
-import com.example.aeon.repositories.DetailKaryawanRepository;
 import com.example.aeon.repositories.KaryawanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -16,8 +20,6 @@ public class KaryawanServiceImpl implements KaryawanService{
   @Autowired
   private KaryawanRepository karyawanRepository;
   
-  @Autowired
-  private DetailKaryawanRepository detailKaryawanRepository;
   
   @Override
   public Karyawan addSingleKaryawanAndDetails(AddSingleKaryawanAndDetailsDto body) {
@@ -42,5 +44,18 @@ public class KaryawanServiceImpl implements KaryawanService{
     
     log.info("=================== RETURNING ===================");
     return savedKaryawan;
+  }
+  
+  @Override
+  public List<Karyawan> getKaryawanListByNama(String nama, BasicPaginationOptions paginationOpts) {
+  
+    Pageable pagination = PageRequest.of(
+      Math.toIntExact((paginationOpts.getPage() - 1) * paginationOpts.getPageSize()),
+      Math.toIntExact(paginationOpts.getPageSize())
+    );
+    
+    List<Karyawan> karyawanList = karyawanRepository.findByNamaContaining(nama, pagination).getContent();
+    
+    return karyawanList;
   }
 }
