@@ -1,12 +1,13 @@
 package com.example.aeon.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Entity
 @EqualsAndHashCode(callSuper = true)
 public class Karyawan extends BaseEntity{
   
@@ -25,5 +26,13 @@ public class Karyawan extends BaseEntity{
   private String status; // Marriage status
   
   private String alamat; // Address
+  
+  @JsonManagedReference(value = "karyawan")
+  @OneToOne(
+    mappedBy = "karyawan",
+    cascade = CascadeType.ALL
+  )
+  @PrimaryKeyJoinColumn
+  private DetailKaryawan detailKaryawan;
   
 }
