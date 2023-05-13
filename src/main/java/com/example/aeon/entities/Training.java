@@ -1,9 +1,11 @@
 package com.example.aeon.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,5 +20,13 @@ public class Training extends BaseEntity{
   
   @Column(nullable = false)
   private String tema;
+  
+  @JsonIgnore
+  @OneToMany(
+    mappedBy = "training",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL
+  )
+  private List<TrainingKaryawan> trainingKaryawanList;
   
 }

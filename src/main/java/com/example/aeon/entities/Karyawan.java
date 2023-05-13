@@ -45,4 +45,12 @@ public class Karyawan extends BaseEntity{
   )
   private List<Rekening> rekeningList;
   
+  @JsonIgnore
+  @OneToMany(
+    mappedBy = "karyawan",
+    fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL
+  )
+  private List<TrainingKaryawan> trainingKaryawanList;
+  
 }
