@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainingRepository extends JpaRepository<Training, Long> {
-  Page<Training> findByNamaPengajarContainingOrTemaContaining(String namaPengajar, String tema, Pageable pagination);
+  Page<Training> findByNamaPengajarContainingAndTemaContaining(String namaPengajar, String tema, Pageable pagination);
 }

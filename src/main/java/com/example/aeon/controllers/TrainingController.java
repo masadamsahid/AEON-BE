@@ -36,10 +36,10 @@ public class TrainingController {
   }
   
   @GetMapping
-  public ResponseEntity getTrainingListByNamaPengajarOrTema(@RequestParam("namaPengajar") String namaPengajar,
-                                                            @RequestParam("tema") String tema,
-                                                            @Valid @RequestBody BasicPaginationOptions paginationOpts){
-    List<Training> trainingList = trainingService.getTrainingListByNamaPengajarOrTema(namaPengajar, tema, paginationOpts);
+  public ResponseEntity getTrainingListByNamaPengajarAndTema(@RequestParam(name = "namaPengajar", defaultValue = "") String namaPengajar,
+                                                             @RequestParam(name = "tema", defaultValue = "") String tema,
+                                                             @Valid @RequestBody BasicPaginationOptions paginationOpts){
+    List<Training> trainingList = trainingService.getTrainingListByNamaPengajarAndTema(namaPengajar, tema, paginationOpts);
     
     if (trainingList.size() == 0){
       return new ResponseEntity<>(

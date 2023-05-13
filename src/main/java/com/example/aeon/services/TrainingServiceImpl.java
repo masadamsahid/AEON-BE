@@ -28,14 +28,14 @@ public class TrainingServiceImpl implements TrainingService {
   }
   
   @Override
-  public List<Training> getTrainingListByNamaPengajarOrTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts) {
+  public List<Training> getTrainingListByNamaPengajarAndTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts) {
   
     Pageable pagination = PageRequest.of(
       Math.toIntExact((paginationOpts.getPage() - 1)),
       Math.toIntExact(paginationOpts.getPageSize())
     );
     
-    List<Training> trainingList = trainingRepository.findByNamaPengajarContainingOrTemaContaining(namaPengajar, tema, pagination).getContent();
+    List<Training> trainingList = trainingRepository.findByNamaPengajarContainingAndTemaContaining(namaPengajar, tema, pagination).getContent();
     
     return trainingList;
   }

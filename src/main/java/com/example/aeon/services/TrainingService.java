@@ -9,5 +9,5 @@ import java.util.List;
 public interface TrainingService {
   Training addSingleTraining(AddSingleTrainingDto fields);
   
-  List<Training> getTrainingListByNamaPengajarOrTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts);
+  List<Training> getTrainingListByNamaPengajarAndTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts);
 }
