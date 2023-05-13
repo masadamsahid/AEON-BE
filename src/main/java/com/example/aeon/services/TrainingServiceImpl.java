@@ -31,7 +31,7 @@ public class TrainingServiceImpl implements TrainingService {
   public List<Training> getTrainingListByNamaPengajarOrTema(String namaPengajar, String tema, BasicPaginationOptions paginationOpts) {
   
     Pageable pagination = PageRequest.of(
-      Math.toIntExact((paginationOpts.getPage() - 1) * paginationOpts.getPageSize()),
+      Math.toIntExact((paginationOpts.getPage() - 1)),
       Math.toIntExact(paginationOpts.getPageSize())
     );
     

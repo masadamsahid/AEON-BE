@@ -52,7 +52,7 @@ public class KaryawanServiceImpl implements KaryawanService{
   public List<Karyawan> getKaryawanListByNama(String nama, BasicPaginationOptions paginationOpts) {
   
     Pageable pagination = PageRequest.of(
-      Math.toIntExact((paginationOpts.getPage() - 1) * paginationOpts.getPageSize()),
+      Math.toIntExact((paginationOpts.getPage() - 1)),
       Math.toIntExact(paginationOpts.getPageSize())
     );
     
