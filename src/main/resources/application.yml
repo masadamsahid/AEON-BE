@@ -3,9 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/karyawan_db
-    username: postgres
-    password: password
+    url: postgresql://postgres:jiW2vinMLVlO3DxniDrk@containers-us-west-70.railway.app:7328/railway
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
