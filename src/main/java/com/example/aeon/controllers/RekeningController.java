@@ -1,5 +1,6 @@
 package com.example.aeon.controllers;
 
+import com.example.aeon.dtos.BasicPaginationOptions;
 import com.example.aeon.dtos.rekening.AddSingleRekeningDto;
 import com.example.aeon.entities.ErrorMessage;
 import com.example.aeon.entities.Rekening;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/rekening")
@@ -34,6 +36,23 @@ public class RekeningController {
       HttpStatus.OK
     );
     
+  }
+  
+  @GetMapping
+  public ResponseEntity getRekeningList(@Valid @RequestBody BasicPaginationOptions paginationOptions){
+    List<Rekening> rekeningList = rekeningService.getRekeningList(paginationOptions);
+  
+    if (rekeningList.size() == 0){
+      return new ResponseEntity<>(
+        new ErrorMessage(HttpStatus.NOT_FOUND, "Rekening tidak ditemukan."),
+        HttpStatus.NOT_FOUND
+      );
+    }
+  
+    return new ResponseEntity<>(
+      rekeningList,
+      HttpStatus.OK
+    );
   }
   
 }
