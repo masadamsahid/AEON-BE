@@ -10,4 +10,6 @@ public interface RekeningService {
   Rekening addRekeningToKaryawan(Long karyawanId, AddSingleRekeningDto fields);
   
   List<Rekening> getRekeningList(BasicPaginationOptions paginationOpts);
+  
+  Rekening getById(Long id);
 }

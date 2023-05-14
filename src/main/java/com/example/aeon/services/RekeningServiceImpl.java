@@ -50,4 +50,13 @@ public class RekeningServiceImpl implements RekeningService {
     
     return rekeningList;
   }
+  
+  @Override
+  public Rekening getById(Long id) {
+    Optional<Rekening> rekening = rekeningRepository.findById(id);
+    
+    if (!rekening.isPresent()) return null;
+    
+    return rekening.get();
+  }
 }

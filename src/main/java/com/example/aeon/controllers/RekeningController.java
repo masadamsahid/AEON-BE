@@ -55,4 +55,19 @@ public class RekeningController {
     );
   }
   
+  @GetMapping("/{id}")
+  public ResponseEntity getRekeningById(@PathVariable("id") String id){
+    Rekening rekening = rekeningService.getById(Long.valueOf(id));
+    
+    if (rekening == null) return new ResponseEntity<>(
+      new ErrorMessage(HttpStatus.NOT_FOUND, "Rekening tidak ditemukan."),
+      HttpStatus.NOT_FOUND
+    );
+  
+    return new ResponseEntity<>(
+      rekening,
+      HttpStatus.OK
+    );
+  }
+  
 }
