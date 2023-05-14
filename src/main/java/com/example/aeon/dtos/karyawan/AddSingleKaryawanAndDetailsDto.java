@@ -16,7 +16,7 @@ public class AddSingleKaryawanAndDetailsDto {
   @NotBlank
   private String status;
   
-  @Max(value = 128, message = "Max 128 characters")
+  @Size(min = 128, message = "Max 128 characters")
   private String alamat;
   
   @NotBlank
